@@ -1526,3 +1526,26 @@ function mostrarTabla() {
   
   console.log("Tabla mostrada correctamente con", datosFiltrados.length, "filas + 1 fila adicional");
 }
+// --- INTEGRACIÓN CON EL MAESTRO DE CEREMONIA ---
+const _seleccionarRolOriginal = seleccionarRol;
+seleccionarRol = function(rol) {
+  if (rol === 'maestro') {
+    rolUsuario = 'maestro';
+    localStorage.setItem('rolUsuario', 'maestro');
+    localStorage.setItem('nombreUsuario', 'Maestro de Ceremonia');
+    document.getElementById('modal-rol').style.display = 'none';
+    if (window.Maestro) window.Maestro.mostrar();
+    return;
+  }
+  _seleccionarRolOriginal(rol);
+};
+// --- INTEGRACIÓN PARA MANTENER LA SESIÓN DEL MAESTRO AL RECARGAR ---
+const _verificarRolGuardadoOriginal = verificarRolGuardado;
+verificarRolGuardado = function() {
+  const resultado = _verificarRolGuardadoOriginal();
+  if (resultado && rolUsuario === 'maestro') {
+    document.getElementById('modal-rol').style.display = 'none';
+    if (window.Maestro) window.Maestro.mostrar();
+  }
+  return resultado;
+};
