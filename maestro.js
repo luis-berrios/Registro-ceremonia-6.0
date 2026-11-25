@@ -335,15 +335,36 @@
   document.getElementById('tp-modo-estricto').onchange = (e) => { modoEstricto = e.target.checked; eventosSinAvance = 0; setStatus(modoEstricto ? 'Modo estricto' : 'Modo tolerante'); };
 
   document.getElementById('tp-btn-cargar').onclick = () => document.getElementById('tp-file-input').click();
-  document.getElementById('tp-file-input').addEventListener('change', function(e) {
+  document.getElementById('tp-file-input').addEventListener('change', async function(e) {
     const file = e.target.files[0];
     if (!file) return;
+    const nombre = file.name.toLowerCase();
+
+    if (nombre.endsWith('.docx')) {
+      if (typeof mammoth === 'undefined') { alert('La librería Mammoth.js no está cargada.'); return; }
+      try {
+        setStatus('Extrayendo texto del .docx…');
+        const arrayBuffer = await file.arrayBuffer();
+        const result = await mammoth.extractRawText({ arrayBuffer });
+        const texto = (result.value || '').trim();
+        if (!texto) { alert('El Word no tiene texto extraíble.'); return; }
+        
+        try { localStorage.setItem('tp_libreto_texto', texto); } catch(_) {}
+        construirPalabras(texto);
+        setStatus('✅ Word cargado');
+      } catch (err) {
+        alert('Error al leer Word: ' + err.message);
+      }
+      return;
+    }
+
+    // Para archivos .txt u otros de texto
     const readerObj = new FileReader();
     readerObj.onload = function(evt) {
       const texto = evt.target.result;
       try { localStorage.setItem('tp_libreto_texto', texto); } catch(_) {}
       construirPalabras(texto);
-      setStatus('Libreto cargado');
+      setStatus('✅ Texto cargado');
     };
     readerObj.readAsText(file, 'UTF-8');
   });
