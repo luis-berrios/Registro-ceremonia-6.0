@@ -1,0 +1,1446 @@
+    :root {
+      --color-fondo: #f5f7fa;
+      --color-encabezado: #ffffff;
+      --color-primario: #26167A;
+      --color-secundario: #3498db;
+      --color-reset: #e74c3c;
+      --color-destacado: #3498db;
+      --color-atrasado-alerta: #E8EB2A;
+      --color-rol-registro: #3498db;
+      --color-rol-invitados: #ff9800;
+      --color-rol-jefe: #9b59b6;
+      --color-rol-coordinador: #e74c3c;
+      --color-rol-secretario: #2ecc71;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--color-fondo);
+      color: #333;
+    }
+    
+    /* MEJORAS PARA EL ENCABEZADO - MÁXIMO 25% DE ALTURA */
+    .header-principal {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--color-encabezado);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      max-height: 25vh; /* Máximo 25% de la altura de la pantalla */
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .header-alerta {
+      background-color: var(--color-atrasado-alerta) !important;
+      animation: pulse-alerta 2s infinite;
+    }
+    
+    @keyframes pulse-alerta {
+      0% { background-color: var(--color-atrasado-alerta); }
+      50% { background-color: #f8f89c; }
+      100% { background-color: var(--color-atrasado-alerta); }
+    }
+    
+    .contenedor {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .titulo-contenedor {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 8px 0;
+    }
+    
+    .encabezado-superior {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .encabezado-titulo {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .encabezado-titulo h2 {
+      font-size: 1.4rem;
+      margin: 0;
+      line-height: 1.2;
+      color: var(--color-primario);
+    }
+    
+    .contador-contenedor-compacto {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f0f0f0;
+      padding: 6px 12px;
+      border-radius: 18px;
+      flex-shrink: 0;
+    }
+    
+    .contador-total-compacto {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--color-primario);
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .contador-total-valor-compacto {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    
+    .contador-total-texto-compacto {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+    
+    .contador-compacto {
+      display: flex;
+      gap: 10px;
+      font-size: 0.8rem;
+    }
+    
+    .contador-item-compacto {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .contador-valor-compacto {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+    
+    .controles-header {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 5px;
+      padding: 8px 0;
+    }
+    
+    .grupo-control-compacto {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .grupo-control-compacto label {
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: 0;
+    }
+    
+    .grupo-control-compacto input {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+    
+    /* Ajustes para móviles */
+    @media screen and (max-width: 768px) {
+      .header-principal {
+        max-height: 30vh; /* Un poco más de espacio en móviles */
+        overflow-y: auto;
+      }
+      
+      .encabezado-superior {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      
+      .encabezado-titulo h2 {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+      
+      .contador-contenedor-compacto {
+        justify-content: center;
+        padding: 5px 10px;
+      }
+      
+      .contador-compacto {
+        gap: 8px;
+      }
+      
+      .controles-header {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      
+      .grupo-control-compacto {
+        margin-bottom: 5px;
+      }
+      
+      .grupo-control-compacto.busqueda-movil {
+        display: flex !important;
+      }
+    }
+    
+    /* Modal de selección de rol */
+    #modal-rol {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 3000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-rol-contenido {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    
+    .modal-rol-contenido h2 {
+      margin-bottom: 20px;
+      color: var(--color-primario);
+    }
+    
+    .opciones-rol {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .opcion-rol {
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      font-weight: 600;
+    }
+    
+    .opcion-rol:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .opcion-rol.registro {
+      border-color: var(--color-rol-registro);
+      color: var(--color-rol-registro);
+    }
+    
+    .opcion-rol.registro:hover, .opcion-rol.registro.seleccionado {
+      background-color: var(--color-rol-registro);
+      color: white;
+    }
+    
+    .opcion-rol.invitados {
+      border-color: var(--color-rol-invitados);
+      color: var(--color-rol-invitados);
+    }
+    
+    .opcion-rol.invitados:hover, .opcion-rol.invitados.seleccionado {
+      background-color: var(--color-rol-invitados);
+      color: white;
+    }
+    
+    .opcion-rol.jefe {
+      border-color: var(--color-rol-jefe);
+      color: var(--color-rol-jefe);
+    }
+    
+    .opcion-rol.jefe:hover, .opcion-rol.jefe.seleccionado {
+      background-color: var(--color-rol-jefe);
+      color: white;
+    }
+    
+    .opcion-rol.coordinador {
+      border-color: var(--color-rol-coordinador);
+      color: var(--color-rol-coordinador);
+    }
+    
+    .opcion-rol.coordinador:hover, .opcion-rol.coordinador.seleccionado {
+      background-color: var(--color-rol-coordinador);
+      color: white;
+    }
+    
+    .opcion-rol.secretario {
+      border-color: var(--color-rol-secretario);
+      color: var(--color-rol-secretario);
+    }
+    
+    .opcion-rol.secretario:hover, .opcion-rol.secretario.seleccionado {
+      background-color: var(--color-rol-secretario);
+      color: white;
+    }
+    
+    .indicador-rol {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: #f0f0f0;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 1001;
+    }
+    
+    .indicador-rol.registro {
+      background-color: var(--color-rol-registro);
+      color: white;
+    }
+    
+    .indicador-rol.invitados {
+      background-color: var(--color-rol-invitados);
+      color: white;
+    }
+    
+    .indicador-rol.jefe {
+      background-color: var(--color-rol-jefe);
+      color: white;
+    }
+    
+    .indicador-rol.coordinador {
+      background-color: var(--color-rol-coordinador);
+      color: white;
+    }
+    
+    .indicador-rol.secretario {
+      background-color: var(--color-rol-secretario);
+      color: white;
+    }
+    
+    /* Modal de contraseña para Secretario */
+    #modal-contrasena {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 4000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-contrasena-contenido {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    
+    .modal-contrasena-contenido h3 {
+      margin-bottom: 20px;
+      color: var(--color-primario);
+    }
+    
+    .modal-contrasena-contenido input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    
+    .modal-contrasena-contenido button {
+      background-color: var(--color-secundario);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin: 0 5px;
+    }
+    
+    .modal-contrasena-contenido button.cancelar {
+      background-color: #95a5a6;
+    }
+    
+    /* Modal para cambiar usuario */
+    #modal-cambiar-usuario {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 5000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-cambiar-usuario-contenido {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    
+    .modal-cambiar-usuario-contenido h3 {
+      margin-bottom: 20px;
+      color: var(--color-primario);
+    }
+    
+    .modal-cambiar-usuario-contenido input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    
+    .modal-cambiar-usuario-contenido button {
+      background-color: var(--color-secundario);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin: 0 5px;
+    }
+    
+    .modal-cambiar-usuario-contenido button.cancelar {
+      background-color: #95a5a6;
+    }
+    
+    /* Botón para cambiar usuario */
+    #cambiar-usuario-btn {
+      position: fixed;
+      top: 50px;
+      right: 10px;
+      background-color: #f0f0f0;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 1001;
+      cursor: pointer;
+      display: none;
+      border: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    #cambiar-usuario-btn:hover {
+      background-color: #e0e0e0;
+    }
+    
+    /* Estilos para el chat */
+    .chat-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 350px;
+      height: 450px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .chat-container.minimized {
+      height: 50px;
+    }
+    
+    .chat-header {
+      background-color: var(--color-primario);
+      color: white;
+      padding: 12px 15px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .chat-header.notification {
+      background-color: #e74c3c;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { background-color: #e74c3c; }
+      50% { background-color: #ff6b6b; }
+      100% { background-color: #e74c3c; }
+    }
+    
+    .chat-notification-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #e74c3c;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    .chat-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    
+    .chat-controls {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .chat-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .chat-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .message {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 15px;
+      margin-bottom: 5px;
+      word-wrap: break-word;
+    }
+    
+    .message.own {
+      align-self: flex-end;
+      background-color: var(--color-destacado);
+      color: white;
+    }
+    
+    .message.other {
+      align-self: flex-start;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    
+    .message-sender {
+      font-size: 0.7rem;
+      margin-bottom: 3px;
+      font-weight: 600;
+    }
+    
+    .message-time {
+      font-size: 0.6rem;
+      text-align: right;
+      margin-top: 3px;
+      opacity: 0.8;
+    }
+    
+    .chat-input-container {
+      padding: 10px 15px;
+      border-top: 1px solid #eee;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .chat-input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      outline: none;
+    }
+    
+
+    .chat-send-btn {
+      background-color: var(--color-destacado);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      width: 40px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 0.9rem;
+      margin-left: 5px;
+    }
+  
+    .chat-send-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .contenedor-tabla {
+      position: relative;
+      overflow: auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-top: 10px;
+      max-height: calc(100vh - 220px);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+    
+    thead th {
+      position: sticky;
+      top: 0;
+      background: var(--color-primario);
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    
+    /* Ajustes de ancho específicos */
+    th:nth-child(1), td:nth-child(1) { width: 5%; }
+    th:nth-child(2), td:nth-child(2) { width: 12%; }
+    th:nth-child(3), td:nth-child(3) { 
+      width: 25%; 
+      text-align: left;
+    }
+    th:nth-child(4), td:nth-child(4) { width: 20%; }
+    th:nth-child(5), td:nth-child(5) { width: 8%; }
+    th:nth-child(6), td:nth-child(6) { width: 8%; }
+    th:nth-child(7), td:nth-child(7) { width: 10%; }
+    th:nth-child(8), td:nth-child(8) { 
+      width: 12%; 
+      min-width: 120px;
+    }
+    
+    .puntual { background-color: #e8f5e9; }
+    .atrasado { background-color: #fff8e1; }
+    .deshabilitado { opacity: 0.6; pointer-events: none; }
+    .chk-deshabilitado {
+      background-color: #e0e0e0;
+      border-color: #b0b0b0;
+    }
+    
+    select.obs-select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+      background-color: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    
+    select.obs-select option {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+    
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    button {
+      background-color: var(--color-secundario);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      flex: 1;
+    }
+    
+    button.reset {
+      background-color: var(--color-reset);
+    }
+
+    @media screen and (max-width: 768px) {
+      .contenedor-tabla {
+        max-height: calc(100vh - 120px);
+      }
+      
+      th, td {
+        padding: 8px 5px;
+        font-size: 0.75rem;
+      }
+      
+      th:nth-child(4), td:nth-child(4),
+      th:nth-child(5), td:nth-child(5),
+      th:nth-child(8), td:nth-child(8) {
+        display: none;
+      }
+      
+      th:nth-child(1), td:nth-child(1) { width: 10%; }
+      th:nth-child(2), td:nth-child(2) { width: 25%; }
+      th:nth-child(3), td:nth-child(3) { width: 35%; }
+      th:nth-child(6), td:nth-child(6) { width: 15%; }
+      th:nth-child(7), td:nth-child(7) { width: 15%; }
+      
+      .botones-accion {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      /* Ajustes para móviles del botón flotante */
+      .boton-flotante {
+        bottom: 70px;
+        left: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+      
+      .btn-protagonismo {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+      
+      .indicador-rol {
+        top: 5px;
+        right: 5px;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+      }
+      
+      /* Ajustes para el chat en móviles */
+      .chat-container {
+        width: 300px;
+        height: 400px;
+        right: 10px;
+        bottom: 10px;
+      }
+      
+      /* Ajustes para el botón de cambio de usuario en móviles */
+      #cambiar-usuario-btn {
+        top: 45px;
+        right: 5px;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+      }
+
+      /* Mostrar columna de invitados solo para rol invitados en móviles */
+      .rol-invitados th:nth-child(9), 
+      .rol-invitados td:nth-child(9) {
+        display: table-cell !important;
+        width: 15% !important;
+      }
+
+      /* Ajustar anchos de columnas para rol invitados */
+      .rol-invitados th:nth-child(1), 
+      .rol-invitados td:nth-child(1) { 
+        width: 8% !important; 
+      }
+
+      .rol-invitados th:nth-child(2), 
+      .rol-invitados td:nth-child(2) { 
+        width: 20% !important; 
+      }
+
+      .rol-invitados th:nth-child(3), 
+      .rol-invitados td:nth-child(3) { 
+        width: 25% !important; 
+      }
+
+      /* Ajustar el input de invitados para móviles */
+      .input-invitados {
+        width: 85% !important;
+        padding: 4px 2px !important;
+        font-size: 0.8rem !important;
+        text-align: center;
+      }
+
+      /* Mostrar columna de orden atrasado solo para rol secretario en móviles */
+      .rol-secretario th:nth-child(10), 
+      .rol-secretario td:nth-child(10) {
+        display: table-cell !important;
+        width: 18% !important;
+      }
+      
+      /* Ocultar otras columnas para hacer espacio (solo para secretario) */
+      .rol-secretario th:nth-child(4), 
+      .rol-secretario td:nth-child(4),
+      .rol-secretario th:nth-child(5), 
+      .rol-secretario td:nth-child(5) {
+        display: none !important;
+      }
+      
+      .select-orden-atrasado {
+        font-size: 0.75rem;
+        padding: 4px;
+      }
+
+      /* Ajuste para la fila adicional en móviles */
+      .fila-adicional td {
+        height: 30px; /* Altura menor en móviles */
+      }
+    }
+
+/* NUEVOS ESTILOS MEJORADOS PARA INDICADOR DE CONEXIÓN GENERAL */
+.conexion-estado {
+  position: fixed;
+  top: 10px;
+  left: 180px;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  background-color: #e0e0e0;
+  z-index: 1002;
+  font-weight: bold;
+}
+
+.conectado {
+  background-color: #4caf50;
+  color: white;
+}
+
+.desconectado {
+  background-color: #f44336;
+  color: white;
+}
+    
+    /* Estilos para el botón flotante */
+    .boton-flotante {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--color-secundario);
+      color: white;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .boton-flotante:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
+    
+    /* Estilos para el modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-contenido {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      max-height: 80vh;
+      overflow: auto;
+    }
+    
+    .modal-contenido h3 {
+      margin-bottom: 15px;
+      color: white;
+      text-align: center;
+      background-color: var(--color-destacado);
+      padding: 12px;
+      border-radius: 6px;
+      margin: -20px -20px 20px -20px;
+    }
+    
+    .modal-contenido p {
+      margin-bottom: 10px;
+    }
+    
+    .modal-contenido input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .modal-botones {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .modal-botones button {
+      flex: none;
+      padding: 8px 16px;
+    }
+    
+    #btn-cancelar-restablecer {
+      background-color: #95a5a6;
+    }
+    
+    #btn-confirmar-restablecer {
+      background-color: var(--color-secundario);
+    }
+    
+    /* Estilos para la tabla de protagonismo */
+    .tabla-protagonismo {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      table-layout: fixed;
+    }
+    
+    .tabla-protagonismo th {
+      background-color: var(--color-destacado);
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    .tabla-protagonismo td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      word-wrap: break-word;
+    }
+    
+    .tabla-protagonismo tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    /* Ajustes de ancho para las columnas específicas */
+    .tabla-protagonismo th:nth-child(1),
+    .tabla-protagonismo td:nth-child(1) {
+      width: 8%;
+    }
+    
+    .tabla-protagonismo th:nth-child(2),
+    .tabla-protagonismo td:nth-child(2) {
+      width: 60%;
+      text-align: left;
+    }
+    
+    .tabla-protagonismo th:nth-child(3),
+    .tabla-protagonismo td:nth-child(3) {
+      width: 20%;
+      text-align: center;
+    }
+    
+    .tabla-protagonismo th:nth-child(4),
+    .tabla-protagonismo td:nth-child(4) {
+      width: 15%;
+      text-align: center;
+    }
+    
+    .ausente {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    
+    .puntual-tabla {
+      color: #27ae60;
+      font-weight: bold;
+    }
+    
+    .atrasado-tabla {
+      color: #f39c12;
+      font-weight: bold;
+    }
+    
+    /* Estilos para filas con protagonismo */
+    .fila-protagonismo {
+      font-weight: bold;
+    }
+    
+    /* Estilo para el encabezado OBS editable */
+    .obs-header-editable {
+      cursor: pointer;
+    }
+    
+    .obs-header-editable:hover {
+      text-decoration: underline;
+    }
+    
+    /* Estilos para elementos ocultos según rol */
+    .columna-oculta {
+      display: none !important;
+    }
+
+/* ESTILOS MEJORADOS PARA EL INDICADOR DE ESTADO DE ROLES (SOLO SECRETARIO) */
+.indicador-roles {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 6px;
+  padding: 6px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 1001;
+  display: none;
+  font-size: 0.7rem;
+  max-width: 160px;
+  border: 1px solid #e0e0e0;
+}
+
+.indicador-roles.visible {
+  display: block;
+}
+
+.indicador-roles h4 {
+  margin-bottom: 6px;
+  color: var(--color-primario);
+  border-bottom: 1px solid #eee;
+  padding-bottom: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.estado-rol {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.estado-rol:last-child {
+  margin-bottom: 0;
+}
+
+.circulo-estado {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.circulo-verde {
+  background-color: #2ecc71;
+}
+
+.circulo-rojo {
+  background-color: #e74c3c;
+}
+
+.circulo-amarillo {
+  background-color: #f39c12;
+}
+
+    /* Estilos para elementos ocultos según rol */
+    .elemento-oculto {
+      display: none !important;
+    }
+
+    /* NUEVO ESTILO PARA NOMBRES TACHADOS */
+    .nombre-tachado {
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+      text-decoration-color: #e74c3c;
+      color: #888;
+      cursor: pointer;
+    }
+    
+    .nombre-estudiante {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .nombre-estudiante:hover {
+      background-color: #f0f8ff;
+    }
+
+    /* MEJORA N°4: Contador de estudiantes totales */
+    .contador-contenedor {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #f0f0f0;
+      padding: 8px 15px;
+      border-radius: 20px;
+    }
+    
+    .contador-total {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--color-primario);
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .contador-total-valor {
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+    
+    .contador-total-texto {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    
+    /* MEJORA N°2: Estilo para el campo de archivo deshabilitado */
+    .file-input-disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    
+    /* MEJORA N°2: Estilo para el texto de solo visualización */
+    .file-info-text {
+      padding: 8px 12px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      margin-top: 5px;
+      font-size: 0.9rem;
+    }
+    
+    /* MEJORA N°1: Estilo para inputs de solo lectura */
+    input[readonly] {
+      background-color: #f5f5f5;
+      cursor: not-allowed;
+    }
+    
+    /* MEJORA N°3: Botón flotante para atrasados */
+    .boton-atrasados {
+      position: fixed;
+      bottom: 150px;
+      left: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .boton-atrasados:hover {
+      background-color: #e67e22;
+      transform: scale(1.05);
+    }
+    
+    /* MEJORA N°3: Modal para atrasados */
+    #modal-atrasados {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-atrasados-contenido {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      max-height: 80vh;
+      overflow: auto;
+    }
+    
+    .modal-atrasados-contenido h3 {
+      margin-bottom: 15px;
+      color: white;
+      text-align: center;
+      background-color: #f39c12;
+      padding: 12px;
+      border-radius: 6px;
+      margin: -20px -20px 20px -20px;
+    }
+    
+    .tabla-atrasados {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      table-layout: fixed;
+    }
+    
+    .tabla-atrasados th {
+      background-color: #f39c12;
+      color: white;
+      padding: 10px;
+      text-align: left;
+    }
+    
+    .tabla-atrasados td {
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+    
+    .tabla-atrasados tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+
+/* Añade esto JUSTO DESPUÉS del código anterior */
+
+/* Anchors específicos para columnas de la tabla de atrasados */
+.tabla-atrasados th:nth-child(1),
+.tabla-atrasados td:nth-child(1) {
+  width: 4%; /* Ancho para la columna N° */
+}
+
+.tabla-atrasados th:nth-child(2),
+.tabla-atrasados td:nth-child(2) {
+  width: 40%; /* Ancho para la columna Nombre */
+}
+
+.tabla-atrasados th:nth-child(3),
+.tabla-atrasados td:nth-child(3) {
+  width: 36%; /* Ancho para la columna Carrera */
+}
+
+.tabla-atrasados th:nth-child(4),
+.tabla-atrasados td:nth-child(4) {
+  width: 10%; /* Ancho para la columna Hora de Llegada */
+}
+
+.tabla-atrasados th:nth-child(5),
+.tabla-atrasados td:nth-child(5) {
+  width: 10%; /* Ancho para la columna Orden Atrasado */
+}
+
+/* Ajustes para móviles */
+@media screen and (max-width: 768px) {
+  .tabla-atrasados th:nth-child(1),
+  .tabla-atrasados td:nth-child(1) {
+    width: 15%;
+  }
+
+  .tabla-atrasados th:nth-child(2),
+  .tabla-atrasados td:nth-child(2) {
+    width: 25%;
+  }
+
+  .tabla-atrasados th:nth-child(3),
+  .tabla-atrasados td:nth-child(3) {
+    width: 20%;
+  }
+
+  .tabla-atrasados th:nth-child(4),
+  .tabla-atrasados td:nth-child(4) {
+    width: 20%;
+  }
+
+  .tabla-atrasados th:nth-child(5),
+  .tabla-atrasados td:nth-child(5) {
+    width: 20%;
+  }
+}
+
+    
+    .cerrar-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* Ajustes para móviles */
+    @media screen and (max-width: 768px) {
+      .contador-contenedor {
+        padding: 6px 12px;
+      }
+      
+      .contador-total {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .contador-total-valor {
+        font-size: 1.1rem;
+      }
+      
+      .contador-total-texto {
+        font-size: 0.5rem;
+      }
+      
+      .boton-atrasados {
+        bottom: 130px;
+        left: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+    }
+
+    /* Estilos para la nueva columna de número de invitados */
+    .input-invitados {
+      width: 60px;
+      text-align: center;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    /* Estilos para el select de orden atrasado */
+    .select-orden-atrasado, .select-orden-atrasado-modal {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    /* Estilo para la fila adicional al final de la tabla */
+    .fila-adicional {
+      background-color: transparent !important;
+      border: none !important;
+    }
+
+    .fila-adicional td {
+      border: none !important;
+      background-color: transparent !important;
+      padding: 0 !important;
+      height: 40px;
+    }
+
+    /* Asegurar que la fila adicional no tenga efectos de hover */
+    .fila-adicional:hover {
+      background-color: transparent !important;
+    }
+
+    /* MEJORA: Botón flotante para detalle de protagonismo */
+    .boton-protagonismo {
+      position: fixed;
+      bottom: 220px; /* Posicionado sobre el botón de atrasados */
+      left: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #9b59b6; /* Color distintivo para protagonismo */
+      color: white;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: none; /* Oculto por defecto */
+    }
+    
+    .boton-protagonismo:hover {
+      background-color: #8e44ad;
+      transform: scale(1.05);
+    }
+    
+    /* Ajustes para móviles */
+    @media screen and (max-width: 768px) {
+      .boton-protagonismo {
+        bottom: 200px;
+        left: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+      
+      /* Ajustar posición del botón de atrasados cuando el de protagonismo está visible */
+      .rol-secretario .boton-atrasados {
+        bottom: 130px;
+      }
+    }
