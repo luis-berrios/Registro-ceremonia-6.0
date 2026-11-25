@@ -1464,7 +1464,7 @@
     <h2>¿Cuál es tu rol?</h2>
     <p>Selecciona tu rol para personalizar tu experiencia:</p>
     <div class="opciones-rol">
-      <div class="opcion-rol registro" data-rol="registro">Registro Titulados</div>
+      <div class="opcion-rol registro" data-rol="registro">Registro Estudiantes</div>
       <div class="opcion-rol invitados" data-rol="invitados">Registro Invitados</div>
       <div class="opcion-rol jefe" data-rol="jefe">Jefe de Escuela</div>
       <div class="opcion-rol coordinador" data-rol="coordinador">Coordinador Auditorio</div>
@@ -1510,7 +1510,7 @@
   <h4>Estado de Roles</h4>
   <div class="estado-rol" id="estado-registro">
     <div class="circulo-estado circulo-rojo"></div>
-    <span>Registro Titulados</span>
+    <span>Registro Estudiantes</span>
   </div>
   <div class="estado-rol" id="estado-invitados">
     <div class="circulo-estado circulo-rojo"></div>
@@ -2055,7 +2055,7 @@ function monitorearEstadosRoles() {
 
 // Función para actualizar los indicadores de estado
 function actualizarIndicadoresEstado(estados) {
-  // Actualizar estado de Registro Titulados
+  // Actualizar estado de Registro Estudiantes
   const circuloRegistro = estadoRegistro.querySelector('.circulo-estado');
   circuloRegistro.className = 'circulo-estado ' + 
     (estados.registro === 'conectado' ? 'circulo-verde' : 
@@ -2295,8 +2295,8 @@ function seleccionarRol(rol) {
   // Asignar nombre de usuario según el rol
   switch(rol) {
     case 'registro':
-      nombreUsuario = "Registro Titulados";
-      indicadorRol.textContent = 'Registro Titulados';
+      nombreUsuario = "Registro Estudiantes";
+      indicadorRol.textContent = 'Registro Estudiantes';
       indicadorRol.className = 'indicador-rol registro';
       break;
     case 'invitados':
@@ -2696,7 +2696,7 @@ function verificarRolGuardado() {
     // Actualizar interfaz según el rol
     switch(rolUsuario) {
       case 'registro':
-        indicadorRol.textContent = 'Registro Titulados';
+        indicadorRol.textContent = 'Registro Estudiantes';
         indicadorRol.className = 'indicador-rol registro';
         break;
       case 'invitados':
