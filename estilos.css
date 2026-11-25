@@ -1444,3 +1444,18 @@
         bottom: 130px;
       }
     }
+/* Estilos para el rol Maestro de Ceremonia */
+.opcion-rol.maestro {
+  border-color: #f39c12;
+  color: #f39c12;
+}
+
+.opcion-rol.maestro:hover, .opcion-rol.maestro.seleccionado {
+  background-color: #f39c12;
+  color: white;
+}
+
+.indicador-rol.maestro {
+  background-color: #f39c12;
+  color: white;
+}
