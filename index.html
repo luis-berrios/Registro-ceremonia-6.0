@@ -270,6 +270,40 @@
 </div>
 
 <!-- Tu JS separado -->
+
+  <!-- CSS del Maestro -->
+<link rel="stylesheet" href="maestro.css">
+
+<!-- VISTA MAESTRO (oculta por defecto) -->
+<div id="vista-maestro">
+  <div id="tp-toolbar">
+    <button id="tp-btn-iniciar" class="btn-iniciar">▶ Iniciar ceremonia</button>
+    <div class="tp-sep"></div>
+    <button id="tp-btn-start" class="primary">▶ Escuchar</button>
+    <button id="tp-btn-stop" disabled>⏸ Detener</button>
+    <div class="tp-sep"></div>
+    <button id="tp-btn-prev">◀ Anterior</button>
+    <button id="tp-btn-next">Siguiente ▶</button>
+    <div class="tp-sep"></div>
+    <button id="tp-btn-cargar">📂 Cargar libreto</button>
+    <input type="file" id="tp-file-input" accept=".txt" style="display:none;">
+    <button id="tp-btn-full">⛶ Pantalla completa</button>
+    <button id="tp-btn-font-down">A−</button>
+    <button id="tp-btn-font-up">A+</button>
+    <label>Vel. <input id="tp-speed" type="range" min="0.2" max="3" step="0.1" value="1" style="width:80px;vertical-align:middle;"></label>
+    <label><input id="tp-modo-estricto" type="checkbox" checked> Estricto</label>
+    <span id="tp-status">Listo</span>
+    <button id="tp-btn-salir" style="margin-left: 10px; background-color: #95a5a6; color: white;">Salir</button>
+  </div>
+  <div id="tp-reader">
+    <div id="tp-script">Carga un libreto con el botón 📂 Cargar libreto</div>
+  </div>
+</div>
+
+<!-- Tu JS principal -->
+<script src="app.js"></script>
+<!-- JS del Maestro -->
+<script src="maestro.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
