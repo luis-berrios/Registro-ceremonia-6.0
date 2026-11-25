@@ -9,6 +9,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <!-- Mammoth.js para leer Word -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
   
   <!-- Tus estilos separados -->
   <link rel="stylesheet" href="estilos.css">
@@ -286,7 +288,7 @@
     <button id="tp-btn-next">Siguiente ▶</button>
     <div class="tp-sep"></div>
     <button id="tp-btn-cargar">📂 Cargar libreto</button>
-    <input type="file" id="tp-file-input" accept=".txt" style="display:none;">
+    <input type="file" id="tp-file-input" accept=".txt,.docx" style="display:none;">
     <button id="tp-btn-full">⛶ Pantalla completa</button>
     <button id="tp-btn-font-down">A−</button>
     <button id="tp-btn-font-up">A+</button>
